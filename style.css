@@ -7,6 +7,9 @@
   --a: #2de3e9;
   --b: #ff7af6;
   --c: #ffd36d;
+  --radius-card: 16px;
+  --radius-control: 10px;
+  --ease: cubic-bezier(.2,.7,.2,1);
 }
 body.focus { --panel: rgba(255,255,255,.05); --a: #5fd5ff; --b: #8fa8ff; }
 body.stress { --a: #ff6e7d; --b: #ffb86a; }
@@ -26,11 +29,15 @@ h1 { margin: 8px 0 0; font-family: "Orbitron", sans-serif; font-size: clamp(2rem
 
 main { width: min(1160px, 95vw); margin: 0 auto 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .card { border: 1px solid var(--line); border-radius: 16px; background: var(--panel); backdrop-filter: blur(14px); padding: 12px; transform-style: preserve-3d; transition: transform .2s ease; }
+.card { border-radius: var(--radius-card); transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease); }
+.card:hover { box-shadow: 0 26px 60px rgba(0,0,0,.35); border-color: rgba(255,255,255,.3); }
 .card h2 { margin: 0 0 10px; font-family: "Orbitron", sans-serif; font-size: 1rem; }
 .full { grid-column: 1 / -1; }
 .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-input, select, textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.04); color: var(--text); padding: 9px; }
-.btn { border: 0; border-radius: 10px; padding: 9px 10px; font-weight: 700; cursor: pointer; }
+input, select, textarea { width: 100%; border: 1px solid var(--line); border-radius: var(--radius-control); background: rgba(255,255,255,.04); color: var(--text); padding: 9px; }
+input:focus, select:focus, textarea:focus { outline: none; box-shadow: 0 0 0 2px rgba(45,227,233,.3); }
+.btn { border: 0; border-radius: var(--radius-control); padding: 9px 10px; font-weight: 700; cursor: pointer; transition: transform .18s var(--ease), filter .18s var(--ease); }
+.btn:hover { transform: translateY(-1px); filter: saturate(1.08); }
 .btn.primary { background: linear-gradient(120deg, var(--a), var(--b)); color: #0d1020; }
 .btn.ghost { border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text); }
 .timer { min-height: 20px; color: #ffd9af; }
