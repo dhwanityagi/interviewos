@@ -7,44 +7,69 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <canvas id="bg-grid" aria-hidden="true"></canvas>
-    <div class="scanline" aria-hidden="true"></div>
+    <canvas id="neural" aria-hidden="true"></canvas>
 
     <header>
-      <p class="label">Interview Intelligence Console</p>
+      <p class="label">AI Neural Command Center</p>
       <h1>InterviewOS</h1>
-      <p>Analyze communication signal quality with cinematic, realtime feedback.</p>
+      <div class="modes">
+        <button class="pill" data-mode="focus">Focus</button>
+        <button class="pill" data-mode="cinematic">Cinematic</button>
+        <button class="pill" data-mode="stress">Stress</button>
+      </div>
     </header>
 
     <main>
-      <section class="card tilt" data-tilt>
-        <h2>Input Simulation</h2>
-        <div class="quick-prompts" id="quick-prompts"></div>
+      <section class="card" data-tilt>
+        <h2>Adaptive Interview Simulation</h2>
+        <div class="row">
+          <select id="persona">
+            <option>FAANG Recruiter</option>
+            <option>Startup Founder</option>
+            <option>HR Behavioral</option>
+            <option>Technical Panel</option>
+          </select>
+          <select id="role">
+            <option>Software Engineer</option>
+            <option>Product Manager</option>
+            <option>Data Analyst</option>
+          </select>
+        </div>
         <input id="prompt" value="Tell me about a project where you solved a difficult problem." />
-        <textarea id="transcript" rows="8">In my second year, I designed a campus issue platform because students faced repeated delays. I optimized the backend workflow and reduced response time by 30 percent. The result was better issue visibility and faster closures.</textarea>
-        <input id="duration" type="number" value="85" min="20" />
-        <button id="analyze">Analyze Response</button>
+        <textarea id="transcript" rows="8"></textarea>
+        <div class="row">
+          <input id="duration" type="number" value="90" min="20" />
+          <button id="micBtn" class="btn ghost">Start Mic</button>
+        </div>
+        <div class="row">
+          <button id="analyze" class="btn primary">Analyze Response</button>
+          <button id="pressureBtn" class="btn ghost">Pressure Mode Timer</button>
+        </div>
+        <div id="timer" class="timer"></div>
       </section>
 
-      <section class="card tilt" data-tilt>
-        <h2>Scoring Radar</h2>
+      <section class="card" data-tilt>
+        <h2>Performance Reveal</h2>
+        <div class="brain-orb" id="brainOrb"></div>
         <div id="metrics" class="metrics"></div>
-        <div class="viz-row">
-          <div class="confidence-dial" id="confidenceDial">
-            <small>Confidence</small>
-            <strong id="confidenceValue">0</strong>
-          </div>
-          <canvas id="timeline" width="560" height="220"></canvas>
+        <div class="row">
+          <canvas id="timeline" height="180"></canvas>
+          <canvas id="wave" height="180"></canvas>
         </div>
-        <p id="tip" class="tip"></p>
+        <div id="starBox" class="box"></div>
+        <div id="semantic" class="box"></div>
+        <div id="rewrite" class="box"></div>
+        <div id="followup" class="box"></div>
       </section>
 
       <section class="card full">
-        <h2>Recent Sessions</h2>
-        <div id="recent" class="recent"></div>
+        <h2>/performance Dashboard</h2>
+        <canvas id="historyChart" height="150"></canvas>
+        <div id="rank" class="rank"></div>
       </section>
     </main>
 
