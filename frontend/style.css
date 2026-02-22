@@ -1,0 +1,38 @@
+:root {
+  --bg: #08050f;
+  --card: rgba(255,255,255,.08);
+  --line: rgba(255,255,255,.2);
+  --text: #f8f4ff;
+  --muted: #bcaee2;
+  --a: #2de3e9;
+  --b: #ff7af6;
+  --c: #ffd36d;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+  color: var(--text);
+  background: radial-gradient(900px 500px at 0% 0%, #1c1945, transparent 70%),
+    radial-gradient(900px 500px at 100% 0%, #3f1b3d, transparent 68%), var(--bg);
+}
+.bg-arc { position: fixed; inset: 0; pointer-events: none; background: conic-gradient(from 180deg at 50% 10%, transparent, rgba(255,255,255,.03), transparent 60%); }
+header { text-align: center; padding: 28px 16px 10px; }
+.label { margin: 0; letter-spacing: .2em; text-transform: uppercase; font-size: .7rem; color: var(--muted); }
+h1 { margin: 8px 0 0; font-family: "Chakra Petch", sans-serif; font-size: clamp(2rem,6vw,4rem); }
+main { width: min(1100px, 94vw); margin: 0 auto 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.card { border: 1px solid var(--line); border-radius: 18px; background: var(--card); backdrop-filter: blur(12px); padding: 14px; }
+.full { grid-column: 1 / -1; }
+.card h2 { margin-top: 0; font-family: "Chakra Petch", sans-serif; }
+input, textarea, button { width: 100%; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: var(--text); padding: 10px; margin-bottom: 8px; }
+button { border: 0; font-weight: 700; color: #0f1020; background: linear-gradient(120deg, var(--a), var(--b)); cursor: pointer; }
+.metrics { display: grid; grid-template-columns: repeat(3,minmax(120px,1fr)); gap: 8px; }
+.metric { border: 1px solid var(--line); border-radius: 12px; padding: 9px; }
+.metric small { color: var(--muted); display: block; }
+.metric strong { font-size: 1.4rem; font-family: "Chakra Petch", sans-serif; }
+canvas { width: 100%; border-radius: 12px; border: 1px solid var(--line); background: rgba(0,0,0,.2); }
+.tip { color: #f5e6bc; }
+.recent { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 8px; }
+.item { border: 1px solid var(--line); border-radius: 11px; padding: 9px; }
+.item strong { font-family: "Chakra Petch", sans-serif; }
+@media (max-width: 900px) { main { grid-template-columns: 1fr; } .full { grid-column: auto; } }
