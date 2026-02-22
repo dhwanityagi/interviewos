@@ -9,6 +9,8 @@ const semantic = document.getElementById('semantic');
 const rewrite = document.getElementById('rewrite');
 const followup = document.getElementById('followup');
 const rankNode = document.getElementById('rank');
+const transcriptHeat = document.getElementById('transcriptHeat');
+const coachingStrip = document.getElementById('coachingStrip');
 
 const timelineChart = new Chart(document.getElementById('timeline'), { type: 'line', data: { labels: [], datasets: [{ label: 'Segment Score', data: [], borderColor: '#2de3e9', tension: .35 }] } });
 const waveChart = new Chart(document.getElementById('wave'), { type: 'line', data: { labels: [], datasets: [{ label: 'Voice Heat', data: [], borderColor: '#ff7af6', tension: .35 }] } });
@@ -65,7 +67,11 @@ function analyzeText(text, sec) {
   const leadership = (text.match(/(led|owned|drove|collaborated|mentored)/gi) || []).length;
   const structure = Math.max(35, Math.min(100, 45 + impactVerbs * 4 + nums * 4 + leadership * 3 + starScore * .2 - filler * 1.2));
   const confidence = Math.max(25, Math.min(100, structure - Math.abs(125 - wpm) * .25 - filler * .7));
-  return { wc, filler, wpm: Number(wpm.toFixed(1)), structure: Number(structure.toFixed(1)), confidence: Number(confidence.toFixed(1)), star, impactVerbs, nums, leadership };
+  return { wc, filler, wpm: Number(wpm.toFixed(1)), structure: Number(structure.toFixed(1)), confidence: Number(confidence.toFixed(1)), star, impactVerbs, nums, leadership, fillerSet };
+}
+
+function highlightFillers(text, fillerSet) {
+  return text.replace(/\b(um|uh|like|basically|actually|you know)\b/gi, '<mark>$1</mark>');
 }
 
 function render(out) {
@@ -75,6 +81,12 @@ function render(out) {
     <article class="metric"><small>Structure</small><strong>${out.structure}</strong></article>
     <article class="metric"><small>Confidence</small><strong>${out.confidence}</strong></article>
   `;
+
+  coachingStrip.textContent = out.wpm > 145
+    ? 'Live Coach: Slow down slightly for better clarity.'
+    : out.filler > 6
+      ? 'Live Coach: Reduce filler words and add measurable outcomes.'
+      : 'Live Coach: Good pace. Add one strong quantified result.';
 
   brainOrb.style.boxShadow = `0 0 ${20 + out.confidence / 2}px rgba(${out.confidence > 80 ? '45,227,233' : out.confidence < 50 ? '255,110,125' : '255,211,109'},.65)`;
   brainOrb.style.transform = `scale(${0.9 + out.confidence / 220})`;
@@ -86,6 +98,8 @@ function render(out) {
   waveChart.data.labels = Array.from({ length: 12 }, (_, i) => i + 1);
   waveChart.data.datasets[0].data = Array.from({ length: 12 }, () => Math.max(10, Math.min(100, out.wpm + (Math.random() - .5) * 40)));
   waveChart.update();
+
+  transcriptHeat.innerHTML = `<strong>Transcript Heatmap:</strong><br/>${highlightFillers(transcript.value, out.fillerSet)}`;
 
   const miss = Object.entries(out.star).filter(([, v]) => !v).map(([k]) => k.toUpperCase());
   starBox.textContent = `STAR Detection -> ${miss.length ? `Missing: ${miss.join(', ')}` : 'Excellent STAR completeness.'}`;
