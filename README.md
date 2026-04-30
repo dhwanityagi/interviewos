@@ -1,24 +1,40 @@
-# InterviewOS - Interview Analytics Command Center
+# InterviewOS — AI Interview Coaching Engine
 
-A full-stack project that analyzes mock interview responses for pacing, filler usage, structure quality, and confidence.
+## 🚀 Overview
+InterviewOS is a real-time interview analytics system that evaluates communication quality using speech and NLP-based heuristics.
 
-## Stack
-- Flask + SQLite backend
-- Surreal control-room UI frontend
+---
 
-## Run Backend
-```bash
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python app.py
-```
+## 🧠 Problem
+Candidates struggle to improve communication due to lack of structured feedback.
 
-## Run Frontend
-Open `frontend/index.html` in browser.
+---
 
-## Resume Value
-- Multidimensional scoring engine
-- Practical interview coaching product
-- Strong UI differentiation from generic dashboards
+## 💡 Solution
+The system analyzes transcripts and provides feedback on pace, filler usage, structure, and confidence.
+
+---
+
+## ⚙️ System Design
+- Speech input → transcript generation  
+- NLP-based scoring engine  
+- Feedback and coaching module  
+
+---
+
+## 📊 Key Results
+- Real-time transcript analysis  
+- Millisecond latency processing  
+- Multi-metric scoring system  
+
+---
+
+## 🛠 Tech Stack
+Flask, NLP heuristics, SQLite
+
+---
+
+## 🔮 Future Improvements
+- Deep learning-based NLP  
+- Emotion detection  
+- Real-time streaming feedback  
